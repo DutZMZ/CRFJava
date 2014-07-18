@@ -187,6 +187,10 @@ public class CRFTrainer extends AbstractCRF {
 			double[][] alpha = this.alpha(Ms);
 			double[][] beta = this.beta(Ms);
 			double zeta1 = this.zetaByAlpha(alpha);
+			
+			if(Double.isInfinite(zeta1)//如果句子太长，归一化参数容易变为无穷大，所以句子应该尽可能的短
+				continue;
+				
 			loss += Math.log(zeta1);
 
 			for (int i = 0; i < Ms.size(); i++) {// 遍历每个单词
